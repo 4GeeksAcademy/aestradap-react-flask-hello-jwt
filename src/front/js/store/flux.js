@@ -21,6 +21,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().changeColor(0, "green");
 			},
 
+			logIn: async (body) => {
+				const response = await fetch(
+					process.env.BACKEND_URL + "/api/log-ins",{
+						method: "POST",
+						body: JSON.stringify(body),
+						headers: {
+							"Content-Type": "aplication/json"
+						}
+					}
+				);
+				if(response.status !== 201)
+				 return false;
+				return true;
+			},
+
 			getMessage: async () => {
 				try{
 					// fetching data from the backend
@@ -33,6 +48,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error loading message from backend", error)
 				}
 			},
+			
 			changeColor: (index, color) => {
 				//get the store
 				const store = getStore();
