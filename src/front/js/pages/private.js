@@ -3,7 +3,7 @@ import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
 
-export const Profile = () => {
+export const Private = () => {
 	const { store, actions } = useContext(Context);
 	const navigate = useNavigate();
 
@@ -15,7 +15,13 @@ export const Profile = () => {
 
 	return (
 		<div className="text-center mt-5">
-			<h1>HEllo PROFILE</h1>
+			<h1>ONLY FOR AUTHENTICATED USERS</h1>
+			<button className="btn btn-primary me-2"
+			        onClick={ event => actions.fecthPrivateEndPoint() }
+			>
+					fecthPrivateEndPoint
+			</button>
+			<p>{store.privateData}</p>
 		</div>
 	);
 };

@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from api.models import db, User
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
@@ -42,3 +42,11 @@ def handle_hello():
     }
 
     return jsonify(response_body), 200
+
+@api.route('/private', methods=['GET'])
+@jwt_required()
+def handle_private_data():
+    userId = get_jwt_identity()
+    user = User.query.get(userId)
+    message = f"This data comes from the DB with a required token and it's a private route. You are using {user.email} and have id: {user.id}"
+    return jsonify(message=message), 200

@@ -1,26 +1,40 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
 	const { store, actions } = useContext(Context);
+	const navigate = useNavigate();
+	const [ show, setShow ] = useState(false);
 	const [ email, setEmail ] = useState('');
 	const [ password, setPassword ] = useState('');
 
-	const handleLogin = async() => {
+	const handleLogin = async(event) => {
+		event. preventDefault();
+		setShow(false);
 		const response = await actions.logIn({
 			email: email, 
 			password: password
 		});
-		if(response)
-		 Navigate("/profile");
-		alert("Somenthing wrong whit the login");
+
+		if(response === true){
+			navigate("/private");
+		}
+		else{
+		 setShow(true);
+		} 
 	}
 
 	return <>
 	<div className="container mt-5">
+	{show && 
+		<div className="alert alert-danger d-flex justify-content-center align-items-center" role="alert">
+			<div >
+				Somenthing wrong with the login, please try again.
+			</div>
+	  	</div>
+	}
 		<div className="row">
 			<div className="col"/>
 			<div className="col">
@@ -53,7 +67,7 @@ export const Login = () => {
 			
 					<button type="submit" 
 						className="btn btn-primary"
-						onClick={ handleLogin }
+						onClick={ event => handleLogin(event) }
 					>Submit
 					</button>
 				</form>
