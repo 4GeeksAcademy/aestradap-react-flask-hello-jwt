@@ -40,6 +40,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 				 return true;
 			},
 
+			register: async (body) => {
+				const response = await fetch(
+					process.env.BACKEND_URL + "/api/register",{
+						method: "POST",
+						body: JSON.stringify(body),
+						headers: {
+							"Content-Type": "application/json"
+						}
+					}
+				);
+				if(response.status !== 201) return false;
+				 return true;
+			},
+
 			checkTokenOnLocalStorage: () => {
 				if(localStorage.getItem("token")){
 					setStore({ token: localStorage.getItem("token") });

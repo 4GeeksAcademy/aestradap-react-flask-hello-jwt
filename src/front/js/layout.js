@@ -4,8 +4,8 @@ import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
 import { Home } from "./pages/home";
-import { Login } from "./pages/login";
-import { Singup } from "./pages/signup";
+import { Login } from "./pages/auth/Login";
+import { Register } from "./pages/auth/Register";
 import { Profile } from "./pages/profile";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
@@ -32,7 +32,7 @@ const Layout = () => {
                         <Route element={<Home />} path="/" />
                         <Route element={<Login />} path="/login" />
                         <Route element={<Profile />} path="/profile" />
-                        <Route element={<Singup />} path="/signup" />
+                        <Route element={<Register />} path="/signup" />
                         <Route element={<Private />} path="/private" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />

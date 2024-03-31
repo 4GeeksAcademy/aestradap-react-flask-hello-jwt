@@ -1,25 +1,25 @@
 import React, { useContext, useState } from "react";
-import { Context } from "../store/appContext";
-import "../../styles/home.css";
+import { Context } from "../../store/appContext";
+import "../../../styles/home.css";
 import { useNavigate } from "react-router-dom";
 
-export const Login = () => {
+export const Register = () => {
 	const { store, actions } = useContext(Context);
 	const navigate = useNavigate();
 	const [ show, setShow ] = useState(false);
 	const [ email, setEmail ] = useState('');
 	const [ password, setPassword ] = useState('');
 
-	const handleLogin = async(event) => {
+	const handleRegister = async(event) => {
 		event. preventDefault();
 		setShow(false);
-		const response = await actions.logIn({
+		const response = await actions.register({
 			email: email, 
 			password: password
 		});
 
 		if(response === true){
-			navigate("/private");
+			navigate("/login");
 		}
 		else{
 		 setShow(true);
@@ -31,7 +31,7 @@ export const Login = () => {
 	{show && 
 		<div className="alert alert-danger d-flex justify-content-center align-items-center" role="alert">
 			<div >
-				Somenthing wrong with the login, please try again.
+				Somenthing wrong with the Register, please try again.
 			</div>
 	  	</div>
 	}
@@ -39,6 +39,7 @@ export const Login = () => {
 			<div className="col"/>
 			<div className="col">
 				<form>
+                    <h2>This its The RegisterScreeen</h2>
 					<div className="mb-3">
 						<label for="exampleInputEmail1"
 							className="form-label">
@@ -67,7 +68,7 @@ export const Login = () => {
 			
 					<button type="submit" 
 						className="btn btn-primary"
-						onClick={ event => handleLogin(event) }
+						onClick={ event => handleRegister(event) }
 					>Submit
 					</button>
 				</form>
